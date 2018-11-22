@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Administrator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="./style/main.css"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+</head>
+<body>
+        <div class="nav">
+                <div class="nav-header">
+                    <img src="./img/logo-admin.png"/>
+                    <div class="nav-title">
+                        <h3 class="brand">Store Manager</h3>
+                    </div>
+                </div>
+                <div class="nav-btn">
+                    <label for="nav-check">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </label>
+                </div>
+                <input type="checkbox" id="nav-check">
+                <div class="nav-links">
+                    <a href="#">Role:</a><span id="user-role">Admin</span>
+                    <span> | </span>
+                    <a href="./index.html">Logout</a>
+                </div>
+            </div>
+    <div class="main">
+        <div class="quick-nav">
+            <ul>
+                <li><a href="#" id="add-product-link">Add products</a></li>
+                <li><a href="#" id="add-category-link">Add product Category</a></li>
+                <li><a href="#" id="view-products">View Products</a></li>
+                <li><a href="#" id="view-sales-link">View Sales</a></li>
+                <li><a href="#" id="add-sales-person-link">Add Sales Person</a></li>
+            </ul>
+        </div>
+        <div class="summary">
+            <div class="card" id="attendants-card">
+                <div class="card-header">Store Attendants</div>
+                <div class="card-main">
+                    <i class="material-icons">group</i>
+                <div class="main-description">
+                    <h3>Attendants Info</h3>
+                    <p>Attendants: <em id="attendants-number"></em></p>
+                </div>
+                </div>
+            </div>
+            <div class="card" id="sales-card">
+                    <div class="card-header">Sales</div>
+                    <div class="card-main">
+                        <i class="material-icons">euro_symbol</i>
+                    <div class="main-description">Sales Info</div>
+                    </div>
+            </div>
+            <div class="card" id="products-card">
+                    <div class="card-header">Products</div>
+                    <div class="card-main">
+                        <i class="material-icons">shopping_basket</i>
+                    <div class="main-description">Products Info</div>
+                    </div>
+            </div>
+        </div>
+        <div class="details">
+
+            <div id="view-sales">
+                    <div class="sort-sales">
+                        <form id = "sort-sales-form">
+                            <h4>sort by sales attendant: </h5>
+                        </form>
+                    </div>
+                    <h4>All Store Sales</h4>
+                    <table>
+                        <thead>
+                            <th>#</th>
+                            <th>Date</th>
+                            <th>Sales Person</th>
+                            <th>Item sold</th>
+                            <th>Quantity</th>
+                            <th>Total Price</th>
+                        </thead>
+                        <tbody id ="sales-body">
+                            
+                        </tbody>
+                    </table>
+            </div>
+
+            <div id="add-sales-person">
+                <form id="add-attendant-form" action="submit">
+                    <h4>Add Sales Attendant</h4>
+                    <input type="text" placeholder="First name" id="userFirstName"/>
+                    <input type="text" placeholder="Last name" id="userLastName"/>
+                    <input type="email" placeholder="user@store.com" id="userEmail"/>
+                    <input type="text" placeholder="Username" id="userUsername"/>
+                    <input type="password" placeholder="Password" id="userPassword"/>
+                    <button>Save</button>
+                </form>
+            </div>
+
+            <div id="add-category">
+                <form>
+                    <h4>Add Category</h4>
+                    <input type="text" placeholder="Category"/>
+                    <button>Save</button>
+                </form>
+            </div>
+
+            <div id="add-product">
+                <form action="submit" id="add-product-form">
+                    <h4>Add Product</h4>
+                    <input type="text" placeholder="Product name" id="prod-name"/>
+                    <select name="product-categories" id="prod-category">
+                        <option>Electronics</option>
+                        <option>Food</option>
+                        <option>Plastics</option>
+                    </select>
+                    <input type="number" placeholder="Quantity" id = "prod-quantity"/>
+                    <input type="number" placeholder="Price" id="prod-price"/>
+                    <button>Save</button>
+                </form>
+            </div>
+
+            <div id="product-details-view">
+                <div class="details-left-column">
+                    <img src="./img/tv.png" alt="product image"/>
+                </div>
+            </div>
+
+            <div id="edit-product-details-view">
+                <form action="submit" id="edit-product-form">
+                    <h4>Edit Product</h4>
+                    <input type="number", id="id-field" disabled/>
+                    <input type="text" id="name-field" disabled/>
+                    <select name="product-categories" id="select-category" disabled>
+                        <option>Electronics</option>
+                        <option>Food</option>
+                        <option>Plastics</option>
+                    </select>
+                    <input type="number" placeholder="Quantity" id="quantity-field"/>
+                    <input type="number" placeholder="Price" id="price-field"/>
+                    <button id="back-product-detail"><< Back</button>
+                    <button id="save-edited-product">Save</button>
+                </form>
+            </div>
+
+            <div class="product-list", id="admin-products-list">
+                <div class="search-item">
+                    <form>
+                        <input type="text" id="search" placeholder="Search Product"/>
+                    </form>
+                </div>
+                <h4>Product Inventory</h4>
+                <table>
+                    <thead>
+                        <th>#</th>
+                        <th>ID</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                        <th>Details</th>
+                    </thead>
+                    <tbody id="prod-details">
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div id="attendants-list">
+                    <h4>Store Attendants</h4>
+            </div>
+            <div id="attendant-details">
+                <h4>Welcome</h4>
+                <div class="row">
+                    <div class="column">
+                        <div class="card">
+                            <a href="https://placeholder.com"><img src="https://via.placeholder.com/200"/></a>
+                            <div class="container">
+                              <h2>Jane Doe</h2>
+                              <p class="title">User</p>
+                              <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                              <p>example@example.com</p>
+                              <p><button class="button">View sales</button></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+  
+        </div>
+    </div>
+<script type="text/javascript" src="index.js"></script><script type="text/javascript" src="attendants.js"></script><script type="text/javascript" src="products.js"></script><script type="text/javascript" src="sales.js"></script></body>
+</html>
