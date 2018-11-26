@@ -1,6 +1,13 @@
 import { modifyDiv, createItem, getSingleItem, editItem, deleteItem, fetchAllItems} from './helpers.js'
 import {getNumberOfAttendants} from './attendants.js'
 
+import adminLogo from '../img/logo-admin.png'
+const logoAdmin = document.getElementById('logo-admin')
+if(logoAdmin !=null){
+    logoAdmin.src = adminLogo
+}
+
+
 let url = 'https://store-manager-api-heroku.herokuapp.com/api/v1/products'
 
 const productsCard = document.getElementById('products-card');
@@ -58,10 +65,12 @@ const createProduct = (number, product_id, name, category, price, quantity) => {
     tableBody.appendChild(tr)
 }
 const editForm = document.getElementById('edit-product-form');
-editForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    getFormData()
-})
+if (editForm !== null) {
+    editForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        getFormData()
+    })
+}
 
 const getFormData = () => {
     const idField = document.getElementById('id-field')
@@ -71,7 +80,10 @@ const getFormData = () => {
     const priceField =document.getElementById('price-field')
     const price = parseFloat(priceField.value);
     updateSingleProduct(id, quantity, price);
-    modifyDiv(adminProductsList)
+    if(adminProductsList){
+        modifyDiv(adminProductsList)
+    }
+    
 
 }
 const fillProductForm = (productId, name, category, quantity, price) => {
@@ -177,7 +189,10 @@ const createProductDetailsView = (productName, product_id, category, quantity, u
     backBtn.innerHTML = '<< Back'
     backBtn.addEventListener('click', (event) => {
         event.preventDefault()
-        modifyDiv(adminProductsList);
+        if (adminProductsList) {
+            modifyDiv(adminProductsList);
+        }
+        
     });
     buttonsDiv.appendChild(backBtn)
 
@@ -200,7 +215,10 @@ const createProductDetailsView = (productName, product_id, category, quantity, u
         if (response){
             deleteSingleProduct(product_id);
             getAllProducts()
-            modifyDiv(adminProductsList);
+            if (adminProductsList) {
+                modifyDiv(adminProductsList);
+            }
+            
         }
     });
     buttonsDiv.appendChild(deleteBtn)
@@ -209,41 +227,62 @@ const createProductDetailsView = (productName, product_id, category, quantity, u
     mainView.appendChild(detailsColumn)
 
 }
-
-addProductForm.addEventListener('submit', (event) => {
-    // When the form is submitted, Save the product to the database
-    event.preventDefault()
-    saveProduct();
-    alert('Product saved')
-    clearTextFields()
-
-});
-
+if (addProductForm !== null) {
+    addProductForm.addEventListener('submit', (event) => {
+        // When the form is submitted, Save the product to the database
+        event.preventDefault()
+        saveProduct();
+        alert('Product saved')
+        clearTextFields()
+    
+    });
+}
 
 //Show admin products list when the page loads
 window.addEventListener('load', () => {
     getAllProducts()
     getNumberOfAttendants()
-    modifyDiv(adminProductsList)
+    if (adminProductsList) {
+        modifyDiv(adminProductsList)
+    }
+    
 });
+if (adminProductList) {
+    if (productsCard !==null && adminProductList !==null) {
+        productsCard.addEventListener('click', () => {
+            modifyDiv(adminProductsList)
+        });
+    }
+}
 
-productsCard.addEventListener('click', () => {
-    modifyDiv(adminProductsList)
-});
 
-addProductLink.addEventListener('click', (event) => {
-    event.preventDefault();
-    modifyDiv(addProduct)
-});
-addCategoryLink.addEventListener('click', () => {
-    modifyDiv(addCategory);
-})
-viewProducts.addEventListener('click', () => {
-    modifyDiv(adminProductsList)
+if (addProductLink !==null && addProduct !== null) {
+    addProductLink.addEventListener('click', (event) => {
+        event.preventDefault();
+        modifyDiv(addProduct)
+    });
+}
 
-});
+if (addCategoryLink !== null && addCategory !== null ) {
+    addCategoryLink.addEventListener('click', () => {
+        modifyDiv(addCategory);
+    })
+}
 
-backProductDetailBtn.addEventListener('click', (event) => {
-    event.preventDefault();
-    modifyDiv(productDetailsView)
-});
+if (adminProductList) {
+    if (viewProducts !==null && adminProductList !== null) {
+        viewProducts.addEventListener('click', () => {
+            modifyDiv(adminProductsList)
+        
+        });
+    }
+}
+
+
+if (backProductDetailBtn !== null && productDetailsView !==null) {
+    backProductDetailBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        modifyDiv(productDetailsView)
+    });
+}
+

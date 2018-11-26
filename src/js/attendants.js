@@ -112,18 +112,30 @@ const clearFormData = () => {
     document.getElementById('userPassword').value = '';
 }
 // Display a list of attendants when the attendants card is clicked
-attendantsCard.addEventListener('click', (event) => {
-    event.preventDefault();
-    getAllAttendants();
-    modifyDiv(attendantsList)
-});
+if (attendantsCard !==null && attendantsList!==null){
+    attendantsCard.addEventListener('click', (event) => {
+        event.preventDefault();
+        getAllAttendants();
+        modifyDiv(attendantsList)
+    });
+}
 
-// Create a new attendant
-attendantsForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    getFormUserData();
-    clearFormData();
-})
+if(attendantsForm !==null){
+    // Create a new attendant
+    attendantsForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        getFormUserData();
+        clearFormData();
+    })
+}
+
+
+if (addSalesPersonLink !== null && addSalesPerson !== null){
+    addSalesPersonLink.addEventListener('click', () => {
+        modifyDiv(addSalesPerson)
+    });
+}
+
 
 const getNumberOfAttendants = () => {
     fetchAllItems(url)
@@ -132,10 +144,6 @@ const getNumberOfAttendants = () => {
         })
         .catch(error => console.log(error))
 }
-
-addSalesPersonLink.addEventListener('click', () => {
-    modifyDiv(addSalesPerson)
-});
 
 
 export { getNumberOfAttendants }

@@ -75,16 +75,19 @@ const getAttendants = () => {
         })
         .catch(error => console.log(error))
 }
-
-viewSalesLink.addEventListener('click', (event) => {
-    getAttendants();
-    getSales()
-    modifyDiv(viewSales)
+if (viewSalesLink !== null && viewSales!==null) {
+    viewSalesLink.addEventListener('click', (event) => {
+        getAttendants();
+        getSales()
+        modifyDiv(viewSales)
+        
+    })
+}
+if (salesCard !== null && viewSales !==null) {
+    salesCard.addEventListener('click', () => {
+        getAttendants();
+        getSales()
+        modifyDiv(viewSales)
     
-})
-salesCard.addEventListener('click', () => {
-    getAttendants();
-    getSales()
-    modifyDiv(viewSales)
-
-})
+    })
+}

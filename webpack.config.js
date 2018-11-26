@@ -6,7 +6,8 @@ module.exports = {
       index: './src/js/index.js',
       attendants: './src/js/attendants.js',
       products: './src/js/products.js',
-      sales: './src/js/sales.js'
+      sales: './src/js/sales.js',
+      main: './src/style/main.css'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -31,19 +32,30 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use: 'babel-loader'
+                loader: 'babel-loader'
             },
+            
             {
                 test: /\.css$/,
                 exclude: /node_modules/,
-                use: [
+                loader: [
                     {
                         loader: 'style-loader'
                     },
                     {
                         loader: 'css-loader'
                     }
-                ]}
+                ]},
+                {
+                    test: /\.(png|jp(e*)g|svg)$/,  
+                    use: [{
+                        loader: 'url-loader',
+                        options: { 
+                            limit: 8000, // Convert images < 8kb to base64 strings
+                            name: 'images/[hash]-[name].[ext]'
+                        } 
+                    }]
+                }
         ]
     }
 };
