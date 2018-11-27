@@ -36,29 +36,18 @@
         <div class="attendant-sales">
                 <h4>Your Sales Report</h4>
                 <div id="summary-report">
-                    <h5>Total sales: 2</h5>
-                    <h5>Total Products sold: 15</h5>
-                    <h5>Sold goods worth: UGX. 30,000</h5>
+                    <h5 id="total-sales"></h5>
+                    <h5 id="total-products"></h5>
+                    <h5 id="sales-worth"></h5>
                 </div>
-                <table>
+                <table id="user-sales">
                     <tr>
                         <th>Date</th>
                         <th>Product</th>
                         <th>Quantity</th>
                         <th>Price</th>
                     </tr>
-                    <tr>
-                        <td>10. July. 2018</td>
-                        <td>Deodorant</td>
-                        <td>1</td>
-                        <td>UGX 10,000</td>
-                    </tr>
-                     <tr>
-                        <td>10. July. 2018</td>
-                        <td>Olive Oil</td>
-                        <td>1</td>
-                        <td>UGX 20,000</td>
-                    </tr>
+                     
                 </table>
         </div>
         <div class="products">
@@ -69,7 +58,7 @@
                 </div>
                 <div class="product-list">
                         <h4>Product Inventory</h4>
-                        <table>
+                        <table id="user-sales-table">
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
@@ -78,22 +67,7 @@
                                 <th>Sell</th>
                                 <th>Categorize</th> 
                             </tr>
-                            <tr id="product-row">
-                                <td>1</td>
-                                <td class="product-name">Sugar</td>
-                                <td>100 Kgs</td>
-                                <td>4000</td>
-                                <td><button class="sell">Sell</button></td>
-                                <td><button class="categorize">Categorize</button></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Milk</td>
-                                <td>50 Pcs</td>
-                                <td>1600</td>
-                                <td> <button class="sell">Sell</button></td>
-                                <td><button class="categorize">Categorize</button></td>
-                            </tr>
+                             
                         </table>
                     </div>
         </div>
@@ -101,16 +75,17 @@
             <div id="sell-product">
                 <form>
                     <h4>Sell Product</h4>
+                    <input type="number" id="product-id" disabled/>
                     <input type="text" id="product" value="product" disabled/>
                     <input type="number" id= "unit-price" value="0.00" disabled/>
-                    <input type="number" placeholder="quantity" id="product-quantity"/>
+                    <input type="number" placeholder="quantity" id="product-quantity" required/>
                     <button id="add-to-cart-btn">Add to Cart</button>
                 </form>
             </div>
             <div id="categorize-product">
                     <form>
                         <h4>Categorize Product</h4>
-                        <input type="text" id="product" value="product" disabled/>
+                        <input type="text" id="categorize-prod" disabled/>
                         <select name="product-categories">
                             <option>Electronics</option>
                             <option>Food</option>
@@ -140,7 +115,7 @@
                         </tr>
                     </tfoot>
                 </table>
-                <button class="checkout">Checkout</button>
+                <button class="checkout" id="checkout">Checkout</button>
             </div>
            
         </div>
