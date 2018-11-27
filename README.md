@@ -1,6 +1,8 @@
 # Store-Manager App
 
-Store Manager is a web application that helps store owners manage sales and product inventory records. This application is meant for use in a single store. View the application [here](https://fatukunda.github.io/Store-Manager-UI/dist/)
+Store Manager is a web application that helps store owners manage sales and product inventory records. This application is meant for use in a single store. View the application [here](https://fatukunda.github.io/Store-Manager-UI/dist/).
+
+This UI consumes an API that I developed. It is hosted [here](https://github.com/fatukunda/Store-Manager/tree/develop).
 
 ## How to login
  - As a store owner ```username: fatukunda``` and ```password: admin123```
