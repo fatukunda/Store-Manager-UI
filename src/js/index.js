@@ -25,7 +25,6 @@ async function loginInfo (){
     return response.json();
 }
 
-
 const login = () => {
     loginInfo()
         .then((data) => {
@@ -35,7 +34,8 @@ const login = () => {
                 window.location = './admin.html'
             }
             else if(user_type === 'user'){
-                window.location ='./attendant.html'
+                window.location =`./attendant.html?searchId =${data.user_id}`
+               
             }
         })
         .catch(error => console.log(error))

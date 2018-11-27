@@ -7,7 +7,8 @@ module.exports = {
       attendants: './src/js/attendants.js',
       products: './src/js/products.js',
       sales: './src/js/sales.js',
-      main: './src/style/main.css'
+      main: './src/style/main.css',
+      attendantProfile: './src/js/attendantProfile.js'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
