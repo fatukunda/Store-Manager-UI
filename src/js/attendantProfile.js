@@ -2,8 +2,6 @@ import {getSingleItem, fetchAllItems, createItem} from '../js/helpers.js'
 const salesUrl = 'https://store-manager-api-heroku.herokuapp.com/api/v1/sales'
 const productsUrl = 'https://store-manager-api-heroku.herokuapp.com/api/v1/products';
 // const reportDiv = document.getElementById('summary-report');
-
-const cartBody = document.getElementById('cart-body');
 const categorizeProduct = document.getElementById('categorize-product');
 const addToCartButton = document.getElementById('add-to-cart-btn');
 const sellProductDiv = document.getElementById('sell-product');
