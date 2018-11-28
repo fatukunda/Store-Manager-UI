@@ -73,13 +73,13 @@
         </div>
         <div>
             <div id="sell-product">
-                <form>
+                <form id="add-to-cart-btn" action="submit">
                     <h4>Sell Product</h4>
                     <input type="number" id="product-id" disabled/>
                     <input type="text" id="product" value="product" disabled/>
                     <input type="number" id= "unit-price" value="0.00" disabled/>
-                    <input type="number" placeholder="quantity" id="product-quantity" required/>
-                    <button id="add-to-cart-btn">Add to Cart</button>
+                    <input type="number" placeholder="quantity" id="product-quantity" required value="" min="1" default="1"/>
+                    <button>Add to Cart</button>
                 </form>
             </div>
             <div id="categorize-product">
