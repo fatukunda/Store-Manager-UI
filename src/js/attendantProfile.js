@@ -12,6 +12,7 @@ const productList = (id, product, quantity, price) => {
     const userSalesTable = document.getElementById('user-sales-table')
     const tr = document.createElement('tr')
     tr.id = 'product-row'
+    tr.style.color = '#003d34'
 
     const numberTd = document.createElement('td')
     numberTd.innerHTML = id
@@ -123,7 +124,6 @@ const getUserSales = () => {
             })
             const totalProducts = totalProductsSold.length
             salesReport(totalSales, totalProducts, goodsWorth)
-            console.log(userSales)
         })
         .catch(error => console.log(error))
 }
@@ -144,7 +144,6 @@ const searchUser = () => {
     getSingleItem(url)
         .then((data) => {
             const user = data
-            console.log(user)
             loggedInUser(user.last_name)
             
         })
@@ -160,16 +159,26 @@ const show = (elem) => {
 const hide = (elem) => {
     elem.style.display = 'none';
 }
-checkoutBtn.addEventListener('click', (event) => {
-    event.preventDefault();
-    makeSale();
-})
-
+if(checkoutBtn !== null){
+    checkoutBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        if(sales.length === 0){
+            alert('Shopping Cart is empty')
+        }
+        else{
+            makeSale();
+        }
+        
+    })
+}
 const makeSale = () => {
     const salesMade = sales
     salesMade.map((sale) => {
         createItem(salesUrl, sale)
-            .then(data => alert(data))
+            .then((data) => {
+                alert(data.message)
+                document.location.reload(true)
+            })
             .catch(error => console.log(error))
     })
 }
@@ -181,9 +190,7 @@ const addToCart = (product, quantity) => {
     }
     sales.push(sale)
 }
-
-addToCartButton.addEventListener('click', (event) => {
-    event.preventDefault();
+const createShoppingCartItem = () => {
     const productTable = document.getElementById('product-table')
     const itemId = document.getElementById('product-id').value;
     const item = document.getElementById('product').value;
@@ -209,6 +216,11 @@ addToCartButton.addEventListener('click', (event) => {
     // Append the product row to the table
 
     productTable.appendChild(tableRow);
+}
+
+addToCartButton.addEventListener('submit', (event) => {
+    event.preventDefault();
+    createShoppingCartItem()
     calculateTotal()
 });
 
