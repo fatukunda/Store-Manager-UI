@@ -2,15 +2,36 @@ import { fetchAllItems, modifyDiv } from './helpers.js'
 
 const attendantsUrl ='https://store-manager-api-heroku.herokuapp.com/api/v1/attendants';
 const salesUrl = 'https://store-manager-api-heroku.herokuapp.com/api/v1/sales';
-const viewSales = document.getElementById('view-sales');
-const viewSalesLink = document.getElementById('view-sales-link')
+
 const sortSalesForm = document.getElementById('sort-sales-form');
-const salesCard = document.getElementById('sales-card');
+
 const salesBody = document.getElementById('sales-body');
 
 const attendants = [];
 
 const selectName = document.createElement('select');
+
+const viewSalesHandler = () => {
+    const viewSales = document.getElementById('view-sales');
+    const salesCard = document.getElementById('sales-card');
+    const viewSalesLink = document.getElementById('view-sales-link')
+    if (viewSalesLink !== null && viewSales!==null) {
+        viewSalesLink.addEventListener('click', (event) => {
+            modifyDiv(viewSales)
+        })
+    }
+    if (salesCard !== null && viewSales !==null) {
+        salesCard.addEventListener('click', () => {
+            modifyDiv(viewSales)
+        })
+    }
+}
+window.addEventListener('load',(event) => {
+    event.preventDefault();
+    viewSalesHandler();
+    getAttendants()
+    getSales()
+})
 
 const createSalesTable = (number, date, salesPerson, product, quantity, totalPrice) => {
     // create the sales table row structure for each sale in the database.
@@ -75,19 +96,4 @@ const getAttendants = () => {
         })
         .catch(error => console.log(error))
 }
-if (viewSalesLink !== null && viewSales!==null) {
-    viewSalesLink.addEventListener('click', (event) => {
-        getAttendants();
-        getSales()
-        modifyDiv(viewSales)
-        
-    })
-}
-if (salesCard !== null && viewSales !==null) {
-    salesCard.addEventListener('click', () => {
-        getAttendants();
-        getSales()
-        modifyDiv(viewSales)
-    
-    })
-}
+

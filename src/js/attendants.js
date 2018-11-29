@@ -1,18 +1,54 @@
 // attendants.js
 import { modifyDiv, createItem, editItem, fetchAllItems } from './helpers.js'
 
-const attendantsList = document.getElementById('attendants-list');
-const attendantsCard = document.getElementById('attendants-card');
-const attendantsForm = document.getElementById('add-attendant-form');
-const attendantsNumber = document.getElementById('attendants-number');
-const attendantDetails = document.getElementById('attendant-details');
-const addSalesPersonLink = document.getElementById('add-sales-person-link');
-const addSalesPerson = document.getElementById('add-sales-person');
-
-
 const url = 'https://store-manager-api-heroku.herokuapp.com/api/v1/attendants';
 
+const attendantsNumber = document.getElementById('attendants-number');
+const attendantDetails = document.getElementById('attendant-details');
+
+const attendantsFormHandler = () => {
+    const attendantsForm = document.getElementById('add-attendant-form');
+    if(attendantsForm !==null){
+        // Create a new attendant
+        attendantsForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            getFormUserData();
+            clearFormData();
+        })
+    }
+}
+const viewAttendantsHandler = () =>{
+    const attendantsList = document.getElementById('attendants-list');
+    const attendantsCard = document.getElementById('attendants-card');
+    // Display a list of attendants when the attendants card is clicked
+    if (attendantsCard !==null && attendantsList!==null){
+        attendantsCard.addEventListener('click', (event) => {
+            event.preventDefault();
+            modifyDiv(attendantsList)
+        });
+    }
+}
+const addSalesPersonHandler =() => {
+    const addSalesPersonLink = document.getElementById('add-sales-person-link');
+    const addSalesPerson = document.getElementById('add-sales-person'); 
+    if (addSalesPersonLink !== null && addSalesPerson !== null){
+        addSalesPersonLink.addEventListener('click', () => {
+            modifyDiv(addSalesPerson)
+        });
+    }
+}
+window.addEventListener('load', (event) => {
+    event.preventDefault();
+    getAllAttendants()
+    viewAttendantsHandler()
+    addSalesPersonHandler()
+    attendantsFormHandler()
+})
+
+
+
 const attendantsLayout = (firstName, email, role) => {
+    const attendantsList = document.getElementById('attendants-list');
     const card = document.createElement('div');
     card.classList.add('card')
     card.style.width = '230px'
@@ -33,7 +69,6 @@ const attendantsLayout = (firstName, email, role) => {
     detailsButton.style.marginBottom = '10px';
     detailsButton.addEventListener('click', (event) => {
         event.preventDefault();
-
         modifyDiv(attendantDetails)
     })
     detailsButton.innerHTML = 'View Details';
@@ -66,14 +101,17 @@ const getAllAttendants = () => {
     fetchAllItems(url)
         .then((data) => {
             const attendants = data
-            attendants.forEach((attendant) => {
+            attendantsNumber.innerHTML = getNumberOfAttendants(attendants)
+            attendants.map((attendant) => {
                 attendantsLayout(attendant.first_name, attendant.email, attendant.user_type)
             })
         })
         .catch(error => console.log(error))
+    }
 
+const getNumberOfAttendants = (attendants) => {
+    return attendants.length
 }
-
 
 // Make an attendant an Admin
 
@@ -84,6 +122,11 @@ const makeAdmin = (attendantId) => {
     }
     editItem(url, data)
         .then(data => data)
+        .catch(error => console.log(error))
+}
+const saveUser = (data) => {
+    createItem(url, data)
+        .then(returnedData => console.log(returnedData))
         .catch(error => console.log(error))
 }
 // Get form user data
@@ -100,9 +143,7 @@ const getFormUserData = () => {
         username: username,
         password: password
     }
-    createItem(url, data)
-        .then(returnedData => returnedData)
-        .catch(error => console.log(error))
+    saveUser(data)
 }
 const clearFormData = () => {
     document.getElementById('userFirstName').value = '';
@@ -111,39 +152,5 @@ const clearFormData = () => {
     document.getElementById('userEmail').value = '';
     document.getElementById('userPassword').value = '';
 }
-// Display a list of attendants when the attendants card is clicked
-if (attendantsCard !==null && attendantsList!==null){
-    attendantsCard.addEventListener('click', (event) => {
-        event.preventDefault();
-        getAllAttendants();
-        modifyDiv(attendantsList)
-    });
-}
 
-if(attendantsForm !==null){
-    // Create a new attendant
-    attendantsForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-        getFormUserData();
-        clearFormData();
-    })
-}
-
-
-if (addSalesPersonLink !== null && addSalesPerson !== null){
-    addSalesPersonLink.addEventListener('click', () => {
-        modifyDiv(addSalesPerson)
-    });
-}
-
-const getNumberOfAttendants = () => {
-    fetchAllItems(url)
-        .then((data) => {
-            attendantsNumber.innerHTML = data.length;
-        })
-        .catch(error => console.log(error))
-}
-
-
-export { getNumberOfAttendants }
 
