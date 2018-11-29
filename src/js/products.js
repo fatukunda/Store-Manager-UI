@@ -1,5 +1,4 @@
-import { modifyDiv, createItem, getSingleItem, editItem, deleteItem, fetchAllItems} from './helpers.js'
-import {getNumberOfAttendants} from './attendants.js'
+import { modifyDiv, createItem, editItem, deleteItem, fetchAllItems} from './helpers.js'
 
 import adminLogo from '../img/logo-admin.png'
 const logoAdmin = document.getElementById('logo-admin')
@@ -10,20 +9,75 @@ if(logoAdmin !=null){
 
 let url = 'https://store-manager-api-heroku.herokuapp.com/api/v1/products'
 
-const productsCard = document.getElementById('products-card');
-const adminProductsList = document.getElementById('admin-products-list');
-const addCategory = document.getElementById('add-category');
-const addProduct = document.getElementById('add-product');
-const addProductLink = document.getElementById('add-product-link');
-const addCategoryLink = document.getElementById('add-category-link');
-const viewProducts = document.getElementById('view-products');
-const productDetailsView = document.getElementById('product-details-view');
-const editProductDetailsView = document.getElementById('edit-product-details-view');
-const backProductDetailBtn = document.getElementById('back-product-detail');
 
-const addProductForm = document.getElementById('add-product-form');
+const adminProductsList = document.getElementById('admin-products-list');
+
+const editProductDetailsView = document.getElementById('edit-product-details-view');
+
+
+
+const addProductFormHandler = () => {
+    const addProductForm = document.getElementById('add-product-form');
+    if (addProductForm !== null) {
+        addProductForm.addEventListener('submit', (event) => {
+            // When the form is submitted, Save the product to the database
+            event.preventDefault()
+            saveProduct();
+        });
+    }
+}
+
+const productDetailsHandler =() => {
+    const backProductDetailBtn = document.getElementById('back-product-detail');
+    const productDetailsView = document.getElementById('product-details-view');
+    if (backProductDetailBtn !== null && productDetailsView !==null) {
+        backProductDetailBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            modifyDiv(productDetailsView)
+        });
+    }
+}
+
+const addProductHandler = () => {
+    const addProduct = document.getElementById('add-product');
+    const addProductLink = document.getElementById('add-product-link');
+    if(addProductLink !== null && addProduct !== null){
+        addProductLink.addEventListener('click', (event) => {
+            event.preventDefault();
+            modifyDiv(addProduct)
+        })
+    }
+}
+const addCategoryHandler = () => {
+    const addCategory = document.getElementById('add-category');
+    const addCategoryLink = document.getElementById('add-category-link');
+    if(addCategoryLink !== null && addCategory !== null){
+        addCategoryLink.addEventListener('click', (event) => {
+            event.preventDefault();
+            modifyDiv(addCategory)
+        })
+    }
+}
+
+const viewProductsHandler = () => {
+    const productsCard = document.getElementById('products-card');
+    const viewProducts = document.getElementById('view-products');
+    if(viewProducts !== null && adminProductsList !== null){
+        viewProducts.addEventListener('click', (event) => {
+            event.preventDefault();
+            modifyDiv(adminProductsList)
+        })
+    }
+    if(productsCard !== null && adminProductsList !== null){
+        productsCard.addEventListener('click', (event) => {
+            event.preventDefault();
+            modifyDiv(adminProductsList)
+        })
+    }
+}
 
 const createProduct = (number, product_id, name, category, price, quantity) => {
+    const productDetailsView = document.getElementById('product-details-view');
     const tableBody = document.getElementById('prod-details')
     const tr = document.createElement('tr')
 
@@ -130,7 +184,7 @@ const getAllProducts = () => {
 const saveProduct = () => {
     // Get the user input from the form and save the product details into the database
     const name = document.getElementById('prod-name').value;
-    const category = document.getElementById('prod-category');
+    let category = document.getElementById('prod-category');
     category = category.options[category.selectedIndex].text;
     const quantity = parseInt(document.getElementById('prod-quantity').value);
     const unit_price = parseFloat(document.getElementById('prod-price').value);
@@ -147,7 +201,10 @@ const addNewProduct = (name, category, unit_price, quantity) => {
         unit_price: unit_price
     }
     createItem(url, data)
-        .then(data => data)
+        .then((data) => {
+            alert(data)
+            clearTextFields();
+        })
         .catch(error => console.log(error))
 }
 
@@ -227,27 +284,22 @@ const createProductDetailsView = (productName, product_id, category, quantity, u
     mainView.appendChild(detailsColumn)
 
 }
-if (addProductForm !== null) {
-    addProductForm.addEventListener('submit', (event) => {
-        // When the form is submitted, Save the product to the database
-        event.preventDefault()
-        saveProduct();
-        alert('Product saved')
-        clearTextFields()
-    
-    });
-}
+
 
 //Show admin products list when the page loads
 window.addEventListener('load', () => {
+    addProductHandler()
+    addCategoryHandler()
+    viewProductsHandler()
+    addProductFormHandler()
+    productDetailsHandler()
     getAllProducts()
-    getNumberOfAttendants()
-    if (adminProductsList) {
+    if (adminProductsList !== null) {
         modifyDiv(adminProductsList)
     }
     
 });
-if (adminProductList) {
+if (adminProductList !== null) {
     if (productsCard !==null && adminProductList !==null) {
         productsCard.addEventListener('click', () => {
             modifyDiv(adminProductsList)
@@ -255,19 +307,6 @@ if (adminProductList) {
     }
 }
 
-
-if (addProductLink !==null && addProduct !== null) {
-    addProductLink.addEventListener('click', (event) => {
-        event.preventDefault();
-        modifyDiv(addProduct)
-    });
-}
-
-if (addCategoryLink !== null && addCategory !== null ) {
-    addCategoryLink.addEventListener('click', () => {
-        modifyDiv(addCategory);
-    })
-}
 
 if (adminProductList) {
     if (viewProducts !==null && adminProductList !== null) {
@@ -278,11 +317,4 @@ if (adminProductList) {
     }
 }
 
-
-if (backProductDetailBtn !== null && productDetailsView !==null) {
-    backProductDetailBtn.addEventListener('click', (event) => {
-        event.preventDefault();
-        modifyDiv(productDetailsView)
-    });
-}
 
