@@ -17,14 +17,17 @@
             <h4>Sign In</h4>
         </div>
         <div class="login-form">
+            <div id="error-message">
+                <p id="error"></p>
+            </div>
+            
             <form action="submit" id="form-login">
-                <input type="text" id="username" placeholder="Username"/>
-                <input type="password" id="password" placeholder="Password"/>
+                <input type="text" id="username" placeholder="Username" required/>
+                <input type="password" id="password" placeholder="Password" required/>
                 <p class="forgot-user"><a href="#">Forgot username/password?</a></p>
                 <button id="login-btn">Log In</button>
-                <p class="no-account">Don't have an account?</p>
-                <p class="contact-admin"><a href="#">Contact Admin</a></p>
             </form>
+            <div id="loader"></div>
         </div>
         <div>
             <hr/>

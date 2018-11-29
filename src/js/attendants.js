@@ -66,7 +66,6 @@ const getAllAttendants = () => {
     fetchAllItems(url)
         .then((data) => {
             const attendants = data
-            console.log(attendants)
             attendants.forEach((attendant) => {
                 attendantsLayout(attendant.first_name, attendant.email, attendant.user_type)
             })
@@ -102,7 +101,7 @@ const getFormUserData = () => {
         password: password
     }
     createItem(url, data)
-        .then(returnedData => console.log(returnedData))
+        .then(returnedData => returnedData)
         .catch(error => console.log(error))
 }
 const clearFormData = () => {

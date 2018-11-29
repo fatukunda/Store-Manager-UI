@@ -9,6 +9,40 @@ h1, h2, h3, h4, h5, h6, a {
     margin:0; padding:0;
   }
 
+  /* Error messages */
+  #error-message{
+      text-align: center;
+      width: 300px;
+      margin: 0 auto;
+      padding-top: 10px;
+      color: #ff0000;
+  }
+  #loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid blue;
+    border-right: 16px solid #00787a;
+    border-bottom: 16px solid red;
+    border-left: 16px solid #d2d6a8;
+    width: 10px;
+    height: 10px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    margin: 0 auto;
+  }
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  #form-login{
+      margin-bottom: 10px;
+  }
+
 /* LOGIN FORM STYLES */
 .login {
     max-width: 500px;
