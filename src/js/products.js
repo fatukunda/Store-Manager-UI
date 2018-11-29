@@ -242,12 +242,12 @@ if (addProductForm !== null) {
 window.addEventListener('load', () => {
     getAllProducts()
     getNumberOfAttendants()
-    if (adminProductsList) {
+    if (adminProductsList !== null) {
         modifyDiv(adminProductsList)
     }
     
 });
-if (adminProductList) {
+if (adminProductList !== null) {
     if (productsCard !==null && adminProductList !==null) {
         productsCard.addEventListener('click', () => {
             modifyDiv(adminProductsList)
@@ -258,6 +258,7 @@ if (adminProductList) {
 
 if (addProductLink !==null && addProduct !== null) {
     addProductLink.addEventListener('click', (event) => {
+        console.log(event.target + 'has been clicked')
         event.preventDefault();
         modifyDiv(addProduct)
     });
@@ -277,7 +278,6 @@ if (adminProductList) {
         });
     }
 }
-
 
 if (backProductDetailBtn !== null && productDetailsView !==null) {
     backProductDetailBtn.addEventListener('click', (event) => {
